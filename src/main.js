@@ -13,6 +13,16 @@ import "./assets/index.css"
 Vue.prototype.$http= axios
 
 axios.defaults.baseURL='http://localhost:8888/api/private/v1/'
+axios.interceptors.request.use(function (config) {
+  // console.log(config);
+  if(config.url.indexOf('login') <= 0){
+    config.headers['Authorization']=localStorage.getItem('token')
+  }
+  
+  // 在发送请求之前做些什么
+  // if()
+  return config
+},)
 
 /* eslint-disable no-new */
 new Vue({
