@@ -3,17 +3,17 @@ import Router from 'vue-router'
 import Login from '@/login/login'
 import Home from '@/home/home'
 import Users from '@/components/users'
-
-
+import Roles from '@/components/roles'
+import Rights from '@/components/rights'
 
 Vue.use(Router)
 
-const router=new Router({
+const router = new Router({
   routes: [
     {
-      path:'/',
-      redirect:"/login"
-   },
+      path: '/',
+      redirect: '/login'
+    },
     {
       path: '/login',
       component: Login
@@ -23,25 +23,31 @@ const router=new Router({
       component: Home,
       children: [
         {
-          path:'/users',
-          component:Users
+          path: '/users',
+          component: Users
+        },
+        {
+          path: '/roles',
+          component: Roles
+        },
+        {
+          path: '/rights',
+          component: Rights
         }
       ]
-
-    },
+    }
   ]
 })
 router.beforeEach((to, from, next) => {
   // console.log(to);
-  
-    // 获取token 
-    const token = localStorage.getItem('token');
-    if(to.path=== '/login' || token){
-      next()
-    }else{
-      next('/login')
-    }
-    
+
+  // 获取token
+  const token = localStorage.getItem('token')
+  if (to.path === '/login' || token) {
+    next()
+  } else {
+    next('/login')
+  }
 })
 
 export default router
